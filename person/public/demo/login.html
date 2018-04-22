@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <div  style="width: 270px;margin: 100px auto" datatype="get">
+        <fieldset>
+            <legend>登陆</legend>
+            账号：<input type="text" placeholder="请输入账号" id="account" /><br>
+            密码：<input type="password" placeholder="请输入密码" id="pass" />
+            <input type="button" value="登陆" id="submit" />
+            <input type="reset" value="重置" />
+            <input type="button" value="注册" id="add"/>
+        </fieldset>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        $("#submit").on('click',()=>{
+            var account = $("#account").val();
+            var pass = $("#pass").val();
+            $.ajax({
+                url:'/login',
+                type:'post',
+                data:{
+                    "account":account,
+                    "paress":pass
+                },
+                dataType:'json',
+                success:function (body) {
+                    if(body.data.result){
+                         window.localStorage.message = JSON.stringify(body.data.message);
+                         window.location.href = '/index.html';
+                    }
+                }
+
+            })
+        });
+        $("#add").on("click",function () {
+            location.href = '/register.html';
+        })
+        function bb() {
+            alert(3)
+        }
+    })
+
+</script>
+</html>

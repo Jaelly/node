@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <div  style="width: 400px;margin: 100px auto" datatype="get">
+        <fieldset>
+            <legend>注册</legend>
+            账号：<input type="text" placeholder="请输入账号" id="account" /><br>
+            密码：<input type="password" placeholder="请输入密码" id="pass" /><br>
+            再次输入密码：<input type="password" placeholder="请输入密码" id="pass2" /><br>
+            密保问题：<input type="text" placeholder="请输入问题" id="qus" /><br>
+            答案：<input type="text" placeholder="请输入答案" id="ans" /><br>
+            <input type="button" value="返回" id="back" />
+            <input type="reset" value="重置" />
+            <input type="button" value="提交" id="add"/><br>
+        </fieldset>
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        $("#add").on('click',()=>{
+            let account = $("#account").val();
+            let pass = $("#pass").val();
+            let pass2 = $("#pass2").val();
+            let qus = $("#qus").val();
+            let ans = $("#ans").val();
+            if(account===""){
+                alert('请输入账号');
+                return;
+            }
+            if(Number(account) === 'NaN'){
+                alert('请输入符合格式的账号');
+                return;
+            }
+            if(pass===""){
+                alert('请输入密码');
+                return;
+            }
+            if(pass!==pass2){
+                alert('两次输入密码不一致');
+                return;
+            }
+            if(ans!==""){
+                if(qus===""){
+                    alert('请输入问题');
+                    return;
+                }
+            }
+            if(qus!==""){
+                if(ans===""){
+                    alert('请输入答案');
+                    return;
+                }
+            }
+
+            $.ajax({
+                url:'/register',
+                type:'post',
+                data:{
+                    "account":account,
+                    "paress":pass,
+                    "qustion":qus,
+                    "answer":ans
+                },
+                dataType:'json',
+                success:function (data) {
+                    alert('success');
+                    console.log(data);
+                }
+
+            })
+        });
+        $("#back").on("click",function () {
+           location.href = "/login.html";
+        });
+        function bb() {
+            alert(3)
+        }
+    })
+
+</script>
+</html>
